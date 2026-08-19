@@ -8,3 +8,10 @@
 server.log
 screenshots/
 _backup/
+oauth-test/.runtime/
+oauth-test/.browser-profile/
+oauth-test/media/
+oauth-test/screenshots/
+oauth-test/*.log
+__pycache__/
+*.py[cod]
