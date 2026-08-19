@@ -1,0 +1,10 @@
+.env
+.env.*
+!.env.example
+*.token
+*.secret
+*.pem
+*.key
+server.log
+screenshots/
+_backup/
