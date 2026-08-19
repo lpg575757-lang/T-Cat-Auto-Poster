@@ -11,10 +11,9 @@ Kit, OAuth, Content Posting API, `video.publish`, automated posting, or a TikTok
 Production Review submission. TikTok Direct Post integration must be completed
 and tested in Sandbox before review.
 
-`CONTACT_EMAIL_REQUIRED` remains in the Privacy Policy and Terms of Service.
-Replace every occurrence with a monitored public contact address before public
-Production use or review submission. While it remains, the website is only
-conditionally complete and Production Review submission is prohibited.
+The monitored public contact address shown in the Privacy Policy and Terms of
+Service is `t4786366@gmail.com`. Production Review submission remains outside
+the scope of this repository and this website task.
 
 ## Files
 

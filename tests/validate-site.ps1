@@ -41,6 +41,12 @@ foreach ($file in $requiredFiles) {
     Assert-Site (Test-Path -LiteralPath (Join-Path $projectRoot $file) -PathType Leaf) "required file: $file"
 }
 
+$legacyPlaceholder = 'CONTACT_' + 'EMAIL_REQUIRED'
+$repositoryFiles = Get-ChildItem -LiteralPath $projectRoot -Recurse -File -Force |
+    Where-Object { $_.FullName -notmatch '[\\/]\.git[\\/]' }
+$legacyMatches = @($repositoryFiles | Select-String -SimpleMatch $legacyPlaceholder)
+Assert-Site ($legacyMatches.Count -eq 0) 'repository contains no legacy contact placeholder'
+
 $pages = @{
     'index.html' = Read-Page 'index.html'
     'privacy.html' = Read-Page 'privacy.html'
@@ -115,7 +121,7 @@ if ($null -ne $privacy) {
     )) {
         Assert-Site ($privacy -match [regex]::Escape($heading)) "privacy covers: $heading"
     }
-    Assert-Site ($privacy -match 'CONTACT_EMAIL_REQUIRED') 'privacy shows contact placeholder'
+    Assert-Site ($privacy -match 't4786366@gmail\.com') 'privacy shows public contact email'
     Assert-Site ($privacy -match 'does not currently collect') 'privacy describes current static-site behavior'
     Assert-Site ($privacy -match 'before.*OAuth|OAuth.*before') 'privacy makes future OAuth handling conditional'
 }
@@ -142,7 +148,7 @@ if ($null -ne $terms) {
     foreach ($prohibition in @('spam', 'rate limits', 'unauthorized access', 'another person')) {
         Assert-Site ($terms -match [regex]::Escape($prohibition)) "terms prohibits: $prohibition"
     }
-    Assert-Site ($terms -match 'CONTACT_EMAIL_REQUIRED') 'terms shows contact placeholder'
+    Assert-Site ($terms -match 't4786366@gmail\.com') 'terms shows public contact email'
 }
 
 $readme = Read-Page 'README.md'
@@ -151,7 +157,7 @@ if ($null -ne $readme) {
         'http://127.0.0.1:3455/callback/',
         'PKCE',
         'state',
-        'CONTACT_EMAIL_REQUIRED',
+        't4786366@gmail.com',
         'URL Properties',
         'signature file',
         'Production Review',
